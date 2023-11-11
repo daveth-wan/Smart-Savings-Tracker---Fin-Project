@@ -21,7 +21,6 @@ def main():
 
     if total_budget == 0:
         set_total_budget()
-        save_total_budget()
 
     expense = get_user_expense()
 
@@ -30,6 +29,7 @@ def main():
     summarize_expenses(expense_file_path)
 
     save_total_budget()
+
 
 def set_total_budget():
     global total_budget
@@ -99,6 +99,7 @@ def summarize_expenses(expense_file_path):
                     print(f"Warning: Invalid line - {line.strip()}. skipping.")
 
         total_amount_spent = 0
+        
         # print summed expenses
         for category, expenses in expenses_by_category.items():
             total_amount_spent += sum(expense.amount for expense in expenses)

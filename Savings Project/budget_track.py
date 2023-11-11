@@ -8,32 +8,39 @@ def set_total_budget():
     global total_budget
     print("What is Your Budget This Month?")
     total_budget = float(input("Enter Your Total Budget: "))
-    print(f"Total Budget Set to ฿{total_budget}\n")
-    print(f"Script Directory: {script_directory}")
-    budget_file_path = os.path.join(script_directory, "budget.txt")
-    print(f"Budget File Path: {budget_file_path}")
+    print(f"Total Budget Set to ฿{total_budget:.2f}\n")
+
+    save_total_budget()
+
+    return total_budget
+
 
 def load_total_budget():
     global total_budget
     try:
-        budget_file_path = os.path.join(script_directory, "budget.txt")
-        print(f"Script Directory: {script_directory}")
-        print(f"Budget File Path: {budget_file_path}")
-        with open(budget_file_path, "r", encoding="utf-8") as budget_file:
+        "budget.txt"
+        with open("budget.txt", "r", encoding="utf-8") as budget_file:
             total_budget = float(budget_file.read())
-            print(f"Total Budget Loaded from File: ฿{total_budget}\n")
+        print(f"Total Budget Loaded from File: ฿{total_budget:.2f}")
     except FileNotFoundError:
-        print("Budget File Not Found, Using Default Total Budget.\n")
+        #print(f"Budget File Not Found at {budget.txt}, Using Default Total Budget.")
         total_budget = 0
     except Exception as e:
-        print(f"Error Saving Budget to File: {e}\n")
+        print(f"Error Loading Budget from File: {e}")
 
 def save_total_budget():
+    print("in", total_budget)
     try:
-        budget_file_path = os.path.join(script_directory, "budget.txt")
-        print(f"Script Directory: {script_directory}")
-        print(f"Budget File Path: {budget_file_path}")
-        with open(budget_file_path, "w", encoding="utf-8") as budget_file:
-            budget_file.write(str(total_budget))
+        "budget.txt"
+        with open("budget.txt", "w", encoding="utf-8") as budget_file:
+            budget_file.write(f"{total_budget:.2f}")
+        #print(f"Total Budget saved to file at {budget.txt}: ฿{total_budget:.2f}")
     except Exception as e:
         print(f"Error Saving Budget to File: {e}")
+
+
+if __name__ == "__main__":
+    load_total_budget()
+    if total_budget == 0:
+        set_total_budget()
+        save_total_budget()
