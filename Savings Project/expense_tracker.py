@@ -1,6 +1,5 @@
 import os
 from expense import Expense
-from budget_track import set_total_budget, load_total_budget, save_total_budget
 
 total_budget = 0
 
@@ -17,7 +16,7 @@ def main():
     script_directory = os.path.dirname(os.path.realpath(__file__))
     expense_file_path = os.path.join(script_directory, "expenses.csv")
 
-    load_total_budget()
+    total_budget = 0
 
     if total_budget == 0:
         set_total_budget()
@@ -27,9 +26,6 @@ def main():
     save_expense_to_file(expense, expense_file_path)
 
     summarize_expenses(expense_file_path)
-
-    save_total_budget()
-
 
 def set_total_budget():
     global total_budget
@@ -76,7 +72,6 @@ def save_expense_to_file(expense: Expense, expense_file_path):
     except FileNotFoundError:
         print(f"Error: File not found at {expense_file_path}")
 
-
 def summarize_expenses(expense_file_path):
     global total_budget
 
@@ -111,8 +106,6 @@ def summarize_expenses(expense_file_path):
 
     except FileNotFoundError:
         print(f"{YELLOW}Error: File Not Found at {expense_file_path}{END}")
-
-    save_total_budget()
 
 if __name__ == "__main__":
     main()
