@@ -1,6 +1,6 @@
 import os
 
-script_directory = os.path.dirname(os.path.realpath(__file__))
+script_directory = os.path.dirname(os.path.abspath(__file__))
 
 total_budget = 0
 
@@ -14,27 +14,24 @@ def set_total_budget():
 
     return total_budget
 
-
 def load_total_budget():
     global total_budget
     try:
-        "budget.txt"
-        with open("budget.txt", "r", encoding="utf-8") as budget_file:
+        budget_file_path = os.path.join(script_directory, "budget.txt")
+        with open(budget_file_path, "r", encoding="utf-8") as budget_file:
             total_budget = float(budget_file.read())
         print(f"Total Budget Loaded from File: ฿{total_budget:.2f}")
     except FileNotFoundError:
-        #print(f"Budget File Not Found at {budget.txt}, Using Default Total Budget.")
+        print(f"Budget File Not Found at {budget_file_path}, Using Default Total Budget.")
         total_budget = 0
     except Exception as e:
         print(f"Error Loading Budget from File: {e}")
 
 def save_total_budget():
-    print("in", total_budget)
     try:
-        "budget.txt"
         with open("budget.txt", "w", encoding="utf-8") as budget_file:
             budget_file.write(f"{total_budget:.2f}")
-        #print(f"Total Budget saved to file at {budget.txt}: ฿{total_budget:.2f}")
+        print(f"Total Budget saved to file: ฿{total_budget:.2f}")
     except Exception as e:
         print(f"Error Saving Budget to File: {e}")
 

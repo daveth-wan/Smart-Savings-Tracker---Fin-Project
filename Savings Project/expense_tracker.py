@@ -76,6 +76,7 @@ def save_expense_to_file(expense: Expense, expense_file_path):
     except FileNotFoundError:
         print(f"Error: File not found at {expense_file_path}")
 
+
 def summarize_expenses(expense_file_path):
     global total_budget
 
@@ -96,10 +97,10 @@ def summarize_expenses(expense_file_path):
                     else:
                         expenses_by_category[category] = [expense]
                 else:
-                    print(f"Warning: Invalid line - {line.strip()}. skipping.")
+                    print(f"Warning: Invalid line - {line.strip()}. Skipping.")
 
         total_amount_spent = 0
-        
+
         # print summed expenses
         for category, expenses in expenses_by_category.items():
             total_amount_spent += sum(expense.amount for expense in expenses)
@@ -110,6 +111,8 @@ def summarize_expenses(expense_file_path):
 
     except FileNotFoundError:
         print(f"{YELLOW}Error: File Not Found at {expense_file_path}{END}")
+
+    save_total_budget()
 
 if __name__ == "__main__":
     main()
